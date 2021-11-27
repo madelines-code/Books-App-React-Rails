@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
 
-  before_action :set_item, only: [:show, :update, :destroy]
+  before_action :set_book, only: [:show, :update, :destroy]
   # this remders the component
   def app 
     render component: "App"
@@ -31,6 +31,8 @@ class BooksController < ApplicationController
       render json: @book
     else
       render json: { errors: @book.errors.full_messages }, status: 422 
+    end
+
   end
 
   def destroy
@@ -44,8 +46,7 @@ class BooksController < ApplicationController
 
   #the reason we sanitize our data is to keep out database clean with only valid entries
   def book_params
-    Book.require(:book).permit(:title, :author)
+    params.require(:book).permit(:title, :author)
   end
-
 
 end
