@@ -3,7 +3,7 @@ import Book from './Book';
 
 const Books = (props) =>{
   // const coordinates with this call in the app.js. <Books books = {books}/> (second 'books' is the books inside const)
-  const { books, updateBook, deleteBook } = props;
+  const { books, updateBook, deleteBook, showUpdateForm } = props;
   return (
     <div style={styles.container}>
       <h1>Books in Stock</h1>
@@ -11,6 +11,7 @@ const Books = (props) =>{
       <Book 
       key = {book.id} 
       {...book}
+      showUpdateForm={showUpdateForm}
       updateBook={updateBook}
       deleteBook={deleteBook}
       // cleaner way to import book properties is to spread out over the component 

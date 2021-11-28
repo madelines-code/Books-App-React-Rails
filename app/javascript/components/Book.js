@@ -1,9 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import BookForm from './BookForm';
 import Books from './Books';
+import App from './App';
 
 const Book = (props)=>{
-  const { title, author, id, quantity, updateBook, deleteBook } = props;
+  // const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const { title, author, id, quantity, updateBook, deleteBook, showUpdateForm, toggleUpdateForm } = props;
+
+  // const toggleUpdateForm = ()=>{
+  //   setShowUpdateForm(!showUpdateForm);
+  // };
+
   return (
     <div style={styles.container}>
       <h2>{ title }</h2>
@@ -11,7 +18,10 @@ const Book = (props)=>{
       <p>ID: { id }</p>
       <p>Books in Stock: { quantity }</p>
       <hr/>
-      <BookForm {...props} updateBook={updateBook} />
+      <button onClick={toggleUpdateForm} style = {styles.button}>{showUpdateForm ? "Cancel" : "Update Book"}</button>
+      {showUpdateForm && <BookForm />}
+      
+      {/* <BookForm {...props} updateBook={updateBook} /> */}
       <hr/>
       <button onClick={() => deleteBook(id)} style={styles.button} >Delete</button>
        {/* (in above the book form says Edit and calls that form because of the id existing) */}
