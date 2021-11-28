@@ -16,20 +16,32 @@ const BookForm = (props) =>{
     console.log({title: title, author: author});
     const book = {title: title, author: author}
     if (id) {
+      try {
       // this is update logic
       let response = await axios.put(`/books/${id}`, book);
       console.log(response.data);
       //need to update UI (update response.data to books)
       // props.updateBook(response.data); COULD USE THIS IF YOU DON'T PASS addBook IN PROPS
       updateBook(response.data); 
-    } else {
+    } catch(err) {
+      alert(`${err.response.data.errors}`);
+      console.log(err);
+      console.log(err.response);
+    }
+  } else {
        // axios call here
        // save to database is DONE
+    try {
     let response = await axios.post('/books', book);
     console.log(response.data);
     //need to update UI (add response.data to books)
     // props.addBook(response.data); COULD USE THIS IF YOU DON'T PASS addBook IN PROPS
     addBook(response.data);   
+  } catch(err) {
+    alert(`${err.response.data.errors}`);
+    console.log(err);
+    // let errorText = (err.response.data.errors);
+  }
     }
   };
   return (

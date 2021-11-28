@@ -3,12 +3,13 @@ import BookForm from './BookForm';
 import Books from './Books';
 
 const Book = (props)=>{
-  const { title, author, id, updateBook, deleteBook } = props;
+  const { title, author, id, quantity, updateBook, deleteBook } = props;
   return (
     <div style={styles.container}>
       <h2>{ title }</h2>
       <h4>By { author }</h4>
       <p>ID: { id }</p>
+      <p>Books in Stock: { quantity }</p>
       <hr/>
       <BookForm {...props} updateBook={updateBook} />
       <hr/>

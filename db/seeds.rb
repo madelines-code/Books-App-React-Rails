@@ -14,5 +14,6 @@ require "faker"
   Book.create(
     title: Faker::Book.title,
     author: Faker::Name.name,
+    quantity: rand(20),
   )
 end

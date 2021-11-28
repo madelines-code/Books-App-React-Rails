@@ -46,7 +46,7 @@ class BooksController < ApplicationController
 
   #the reason we sanitize our data is to keep out database clean with only valid entries
   def book_params
-    params.require(:book).permit(:title, :author)
+    params.require(:book).permit(:title, :author, :quantity)
   end
 
 end
