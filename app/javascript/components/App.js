@@ -21,11 +21,16 @@ const App = ()=> {
   const toggleNewForm = ()=>{
     setShowNewForm(!showNewForm);
   };
+
+  const addBook = (book) => {
+    setBooks([book, ...books]);
+  };
+
   return (
     <div style = {styles.container}>
       <h1 style = {styles.header}>This is a 1 page app</h1>
       <button onClick={toggleNewForm} style = {styles.button}>{showNewForm ? "Cancel" : "New Book"}</button>
-      {showNewForm && <BookForm />}
+      {showNewForm && <BookForm addBook={addBook} />}
        {/* first Books refers to the react component Books.js. second books (books=) is name of the prop. third books is the value (array created from the useState). */}
       <Books books = {books}/>
     </div>
