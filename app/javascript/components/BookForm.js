@@ -1,22 +1,36 @@
+// future features: could add clear form after submittimg or collapse form after submitting with thank you for adding "this book" message
+
 import React, {useState} from 'react' 
 import axios from 'axios';
+import Book from './Book';
 
 const BookForm = (props) =>{
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const {id, addBook} = props;
+  const {id, addBook, title: initialTitle, author: initialAuthor, updateBook} = props;
+  const [title, setTitle] = useState( initialTitle ? initialTitle : "" );
+  const [author, setAuthor] = useState(initialAuthor ? initialAuthor : "");
+  // const initialTitle = props.title
+  // const initialAuthor = props.author
   const handleSubmit = async (e)=>{
     // this prevents a reload
     e.preventDefault();
     console.log({title: title, author: author});
-    const item = {title: title, author: author}
-    // axios call here
-    // save to database is DONE
-    let response = await axios.post('/books', item);
+    const book = {title: title, author: author}
+    if (id) {
+      // this is update logic
+      let response = await axios.put(`/books/${id}`, book);
+      console.log(response.data);
+      //need to update UI (update response.data to books)
+      // props.updateBook(response.data); COULD USE THIS IF YOU DON'T PASS addBook IN PROPS
+      updateBook(response.data); 
+    } else {
+       // axios call here
+       // save to database is DONE
+    let response = await axios.post('/books', book);
     console.log(response.data);
     //need to update UI (add response.data to books)
     // props.addBook(response.data); COULD USE THIS IF YOU DON'T PASS addBook IN PROPS
-    addBook(response.data);
+    addBook(response.data);   
+    }
   };
   return (
     <div style={styles.container}>
